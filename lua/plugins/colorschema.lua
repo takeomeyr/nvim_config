@@ -30,15 +30,15 @@ return {
 						LineNr = { fg = dragon.springGray },
 						LineNrAbove = { fg = dragon.fujiGray },
 						LineNrBelow = { fg = dragon.fujiGray },
-						CursorLineNr = { fg = dragon.oldWhite, bold = true },
+						CursorLineNr = { fg = dragon.boatYellow2 },
 
 						-- Floating windows:
 						NormalFloat = { bg = "none" },
-						FloatBorder = { bg = "none", fg = dragon.roninYellow },
+						FloatBorder = { bg = "none", fg = dragon.boatYellow1 },
 						FloatTitle = { bg = "none", fg = dragon.boatYellow2 },
 
 						-- Telescope:
-						TelescopeTitle = { fg = dragon.waveRed, bold = true },
+						TelescopeTitle = { fg = dragon.carpYellow, bold = true },
 						TelescopePromptBorder = { fg = dragon.boatYellow2 },
 						TelescopeResultsBorder = { fg = dragon.boatYellow2 },
 						TelescopePreviewBorder = { fg = dragon.boatYellow2 },

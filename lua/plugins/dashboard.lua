@@ -7,8 +7,6 @@ return {
 		local alpha = require("alpha")
 		local dashboard = require("alpha.themes.dashboard")
 		local lazy_stats = require("lazy").stats()
-		local loaded = lazy_stats.loaded
-		local count = lazy_stats.count
 		local ms = lazy_stats.startuptime
 
 		-- ASCII Header (Kanagawa Dragon soft colors):
@@ -34,18 +32,23 @@ return {
 		}
 		dashboard.section.buttons.opts.hl = "DashboardButtons"
 
-		-- Footer:
-		dashboard.section.footer.val = {
-			("Neovim loaded %d/%d plugins in %.1fms"):format(loaded, count, ms),
-		}
-		dashboard.section.footer.opts.hl = "DashboardFooter"
-
-		-- Kanagawa Dragon soft Highlights:
-		vim.cmd([[
-            hi DashboardHeader  guifg=#D27E92   
-            hi DashboardButtons guifg=#70BFD9  
-            hi DashboardFooter  guifg=#D9B066   
-        ]])
+		vim.api.nvim_create_autocmd("User", {
+			once = true,
+			pattern = "LazyVimStarted",
+			callback = function()
+				local stats = require("lazy").stats()
+				local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+				dashboard.section.footer.val = "Neovim loaded "
+					.. stats.loaded
+					.. "/"
+					.. stats.count
+					.. " plugins in "
+					.. ms
+					.. "ms"
+				pcall(vim.cmd.AlphaRedraw)
+			end,
+		})
+		vim.cmd([[hi DashboardHeader  guifg=#C0A36E]])
 
 		alpha.setup(dashboard.opts)
 	end,
